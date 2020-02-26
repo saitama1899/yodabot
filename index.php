@@ -10,15 +10,19 @@
 </head>
 
 <body>
-  <?php include 'template/navbar.php' ?>
+<?php require 'template/navbar.php' ?>
 
-  <main id="app"></main>
+  <main id="app">
+    <chat></chat>
+  </main>
   <!-- Vue JS -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <!-- JQuery AJAX -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.4/jquery.xdomainrequest.min.js"></script>
-  <script src="../js/app.js"></script>
+  <!-- Vue resource for AJAX -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
+  <!-- Main app JS -->
+  <script src="js/app.js"></script>
+
 </body>
 
-<?php include 'template/footer.php' ?>
+<?php require 'template/footer.php' ?>
 </html>
