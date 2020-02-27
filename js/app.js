@@ -18,7 +18,7 @@ const chat_form = {
       <form class="form-inline" id="chat-form" autocomplete="off" @submit.prevent="send">
         <div class="form-group">
           <input type="text" v-model="message" class="form-control" placeholder="Say something to YodaBot"
-            required required-pattern="[A-Za-z0-9]{2,50}" autofocus>
+            required required-pattern="[A-Za-z0-9]{2,50}" :disabled="writing" autofocus>
           <button type="submit" class="btn btn-primary ml-2">Send!</button>
         </div>
       </form>
@@ -27,15 +27,23 @@ const chat_form = {
   data() {
 		return {
       message: "",
+      response: "",
       writing: false
 		}
 	},
   methods: {
     send() {
       if (this.message) {
-        const form = document.getElementById('chat-form')
         this.$emit('message', this.message)
         this.writing = true
+        const form = document.getElementById('chat-form')
+        axios
+          .post('../api/conversation.php', new FormData(form))
+          .then(res =>{
+            this.response = res.data
+          })
+          .catch(e => console.log(e))
+          // .finally(() => this.writing = false)
         this.message = ""
       }
     }
