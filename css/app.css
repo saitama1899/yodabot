@@ -1,0 +1,32 @@
+/* Header */
+.navbar-brand {
+  font-size: 2rem;
+  margin: 0 auto;
+}
+
+/* Footer */
+footer {
+  position: absolute;
+  bottom: 0;
+  padding: 5px;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+
+  /* Chat form */
+  .form-group {
+    width: 100%;
+  }
+
+  .form-control {
+    display: inline-block;
+    width: 75%;
+  }
+
+  [type=submit] {
+    float: right;
+    width: 20%;
+  }
+}
