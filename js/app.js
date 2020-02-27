@@ -1,29 +1,78 @@
+// Header component
 const navbar = {
   template: `
     <nav class="navbar navbar-dark" style="background-color: #8c695a">
       <a class="navbar-brand" href="#">
         <img src="./assets/img/yodabot.png" width="50" height="50" class="d-inline-block align-top" alt="yodabot">
-          yodabot
+         YodaBot
       </a>
     </nav>
   `
 }
 
-const chat = {
+// Chat form component
+const chat_form = {
   template: `
-    <div id="chat">
-      <ul id="messages"></ul>
-      <small id="feedback" class="form-text text-muted mb-2">We'll never share your email with anyone else.</small>
+    <div id="chat-form-component">
+      <small v-show="writing" class="form-text text-muted mb-2">YodaBot is writing...</small>
       <form class="form-inline" id="chat-form" autocomplete="off" @submit.prevent="send">
         <div class="form-group">
-          <input type="text" class="form-control" name="message" placeholder="Send your message" required required-pattern="[A-Za-z0-9]{1,50}">
-          <button type="submit" class="btn btn-primary ml-2">Send</button>
+          <input type="text" v-model="message" class="form-control" placeholder="Say something to YodaBot"
+            required required-pattern="[A-Za-z0-9]{2,50}" autofocus>
+          <button type="submit" class="btn btn-primary ml-2">Send!</button>
         </div>
       </form>
     </div>
-  `
+  `,
+  data() {
+		return {
+      message: "",
+      writing: false
+		}
+	},
+  methods: {
+    send() {
+      if (this.message) {
+        const form = document.getElementById('chat-form')
+        this.$emit('message', this.message)
+        this.writing = true
+        this.message = ""
+      }
+    }
+  }
 }
 
+// Chat component
+const chat = {
+  template: `
+    <div id="chat">
+      <ul id="messages">
+        <li v-for="message in messages" :class="[message.bot ? 'bot' : 'user']">
+          <b v-if="message.bot">YodaBot</b><b v-else>You</b>
+          <p>{{ message.body }}</p>
+        </li>
+      </ul>
+      <chat_form @message="userMessage"></chat_form>
+    </div>
+  `,
+  components:{
+    'chat_form': chat_form
+  },
+  data() {
+    return {
+      messages: [],
+      historial: []
+    }
+  },
+  methods: {
+    userMessage(message) {
+      var message = {bot: false, body: message}
+      this.messages.push(message)
+    }
+  }
+}
+
+// Footer component
 const footer = {
   template: `
     <footer>
@@ -31,6 +80,7 @@ const footer = {
     </footer>
   `
 }
+
 
 var app = new Vue({
   el: '#app',
