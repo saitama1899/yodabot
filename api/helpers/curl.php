@@ -2,7 +2,7 @@
 
   class Curl {
 
-    static function post($url, $headers, $body) {
+    static function post($url, $headers, $body = "") {
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_URL, $url);
       curl_setopt($ch, CURLOPT_POST, 1);
