@@ -18,7 +18,6 @@ ul {
 
 #messages li {
   padding: 1em;
-  float: right;
   width: 50%;
 }
 
@@ -29,11 +28,13 @@ ul {
 .user {
   background: #d5cbbf;
   border-radius: 10px 0px 10px 10px;
+  float: right;
 }
 
 .bot {
   background: #9ecf64;
   border-radius: 0px 10px 10px 10px;
+  float: left;
 }
 
 /* Footer */
@@ -41,7 +42,7 @@ footer {
   position: absolute;
   bottom: 0;
   margin-left: 2em;
-  color: gray;
+  color: #dcdcdc;
 }
 
 /* Bootstrap overrides*/
