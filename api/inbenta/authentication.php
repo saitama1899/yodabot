@@ -49,14 +49,14 @@
       ];
 
       $response = Curl::post(self::CONV_URL.'/message', $headers, $body);
+      // echo json_encode($response);
+      $msg = $response['answers'][0]['message'];
+      $flags = $response['answers'][0]['flags'];
 
-      if (in_array('no-results', $response['answers'][0]['flags'])) {
-        $answer = 'no-results';
-      } else {
-        $answer = $response['answers'][0]['message'];
-      }
-
-      return json_encode($answer);
+      return [
+        'message' => $msg,
+        'no-results' => in_array('no-results', $flags, true)
+      ];
     }
 }
 

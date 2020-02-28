@@ -1,15 +1,8 @@
 <?php
   require_once 'inbenta/authentication.php';
+  require_once 'AI.php';
 
   session_start();
-
-  // $actual = new DateTime();
-  // $actual->setTimestamp(time());
-  // $expiration = new DateTime();
-  // $expiration->setTimestamp($_SESSION['access_token_expiration']);
-  // echo 'Expiration: '. $expiration->format('U = Y-m-d H:i:s') . "<br>";
-  // echo 'Actual: '. $actual->format('U = Y-m-d H:i:s') . "<br>";
-
 
   // If the user don't have access token or it's expired
   if (!isset($_SESSION['access_token']) || time() > $_SESSION['access_token_expiration']) {
@@ -19,10 +12,23 @@
   // If there is a conversation session already
   if (isset($_SESSION['conversation_token'])){
     // $message = htmlentities($_POST['message']);
-    $message = "Hi";
-    $answer = Authentication::getBotAnswer($_SESSION['access_token'], $_SESSION['conversation_token'], $message);
+    $message = "Hello there";
+    // If the message contains an easter egg word/sentence
+    $is_easter_egg = AI::isEasterEgg($message);
 
-    return $answer;
+    // If not contains a special word
+    if (!is_int($is_easter_egg)) {
+      $answer = Authentication::getBotAnswer(
+        $_SESSION['access_token'],
+        $_SESSION['conversation_token'],
+        $message
+      );
+
+      echo $answer['message'];
+
+    } else {
+      echo AI::easterEggs($is_easter_egg);
+    }
   } else {
     newConversationToken($_SESSION['access_token']);
   }
