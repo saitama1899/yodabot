@@ -29,5 +29,9 @@
           break;
       }
     }
+
+    public static function helperMessage() {
+      return StarWarsSwapi::getCharacters();
+    }
   }
 ?>

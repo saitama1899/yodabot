@@ -4,17 +4,18 @@
   class StarWarsSwapi {
 
     const URL = 'https://swapi.co/api/';
-    const LIGHT = [1,2,3,5,10,11,13,14,20,25,32,35,51];
-    const DARK = [4,15,16,21,22,36,44,67,79];
 
     public static function getCharacters() {
       $headers = [
         'Content-Type: application/json'
       ];
-      $light_side = Curl::get(self::URL.'people/'.array_rand(self::LIGHT, 1), $headers);
-      $dark_side = Curl::get(self::URL.'people/'.array_rand(self::DARK, 1), $headers);
+      $chars = range(1, 70);
+      shuffle($chars);
 
-      return 'Know what to say I do not. Hmmmm. You know that '.$light_side['name'].' and '.$dark_side['name'].' were rivals did?';
+      $c1 = Curl::get(self::URL.'people/'.$chars[0], $headers);
+      $c2 = Curl::get(self::URL.'people/'.$chars[1], $headers);
+
+      return 'Know what to say I do not. Hmmmm. You know that '.$c1['name'].' and '.$c2['name'].' were rivals did? Or friends were they?';
     }
 
     public static function getFlims() {
