@@ -20,6 +20,7 @@
       ];
 
       $response = Curl::post(self::AUTH_URL, $headers, $body);
+
       return [
         'accessToken' => $response['accessToken'],
         'expiration' => $response['expiration']
@@ -32,8 +33,31 @@
         'Authorization: Bearer '.$accessToken
       ];
       $response = Curl::post(self::CONV_URL, $headers);
+
       return $response['sessionToken'];
     }
-  }
+
+    public static function getBotAnswer($accessToken, $convToken, $message) {
+      $headers = [
+        'x-inbenta-key: '.self::APIKEY,
+        'x-inbenta-session: Bearer '.$convToken,
+        'Authorization: Bearer '.$accessToken,
+        'Content-Type: application/json'
+      ];
+      $body = [
+        'message' => $message
+      ];
+
+      $response = Curl::post(self::CONV_URL.'/message', $headers, $body);
+
+      if (in_array('no-results', $response['answers'][0]['flags'])) {
+        $answer = 'no-results';
+      } else {
+        $answer = $response['answers'][0]['message'];
+      }
+
+      return json_encode($answer);
+    }
+}
 
 ?>
