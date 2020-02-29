@@ -55,16 +55,9 @@
 .feedback {
   text-align: center;
 }
-/* Footer */
-footer {
-  position: absolute;
-  bottom: 0;
-  margin-left: 2em;
-  color: #dcdcdc;
-}
-
 
 /* Bootstrap overrides*/
+
 .form-group {
   width: 90%!important;
   margin: 0 auto;
@@ -80,11 +73,12 @@ footer {
   width: 10%!important;
 }
 
-/*  */
 /* Mobile */
+
 @media (max-width: 767px) {
 
   /* Chat form */
+
   .form-control {
     width: 75%!important;
   }

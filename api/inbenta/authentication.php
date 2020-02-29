@@ -50,6 +50,7 @@
 
       $response = Curl::post(self::CONV_URL.'/message', $headers, $body);
 
+      // If we dont get error response
       if (!array_key_exists('errors', $response)) {
         $msg = $response['answers'][0]['message'];
         $flags = $response['answers'][0]['flags'];
