@@ -14,7 +14,6 @@
   <main id="app">
     <navbar></navbar>
     <chat class="container"></chat>
-    <footer-cp></footer-cp>
   </main>
 
   <!-- Vue JS -->

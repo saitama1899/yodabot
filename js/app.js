@@ -14,7 +14,7 @@ const navbar = {
 const chat_form = {
   template: `
     <div id="chat-form-component">
-      <small v-show="writing" class="form-text text-muted mb-2">YodaBot is writing...</small>
+      <p v-show="writing" class="feedback" ><span class="spinner-border text-success" style="width: 1rem; height: 1rem;" role="status"></span><span> YodaBot is writing...</span></p>
       <form class="form-inline" id="chat-form" autocomplete="off" @submit.prevent="send">
         <div class="form-group">
           <input type="text" name="message" v-model="message" class="form-control" placeholder="Say something to YodaBot"
@@ -48,9 +48,7 @@ const chat_form = {
           .finally(() =>
             this.writing = false
           )
-
         this.message = ""
-        // this.response = ""
       }
     }
   }
@@ -87,16 +85,14 @@ const chat = {
       var response = {bot: true, body: response}
       this.messages.push(response)
     }
+  },
+  watch: {
+  	messages: function() {
+      setTimeout(function() {
+      	window.scrollTo(0,document.body.scrollHeight);
+      }, 10);
+  	}
   }
-}
-
-// Footer component
-const footer = {
-  template: `
-    <footer>
-      Eric Selva © 2020
-    </footer>
-  `
 }
 
 // App
@@ -104,7 +100,6 @@ var app = new Vue({
   el: '#app',
   components:{
     'chat': chat,
-    'navbar': navbar,
-    'footer-cp': footer
+    'navbar': navbar
   }
 })
