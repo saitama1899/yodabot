@@ -14,13 +14,8 @@
     $_SESSION['no-results'] = 0;
   }
 
-  // If conversation session is not initialized
-  if(!isset($_SESSION['conversation_token'])){
-    isset($_SESSION['conversation_token']);
-  }
-
   // If there is a conversation session already
-  if (isset($_SESSION['conversation_token'])){
+  if (isset($_SESSION['conversation_token'])) {
     $message = htmlentities($_POST['message']);
     // If the message contains an easter egg word/sentence
     $is_easter_egg = AI::isEasterEgg($message);
@@ -32,9 +27,13 @@
         $_SESSION['conversation_token'],
         $message
       );
-
+      // If we got a session expired response
+      if ($answer['message'] == "Session expired.") {
+        newConversationToken($_SESSION['access_token']);
+        echo "Your session expired, reload the page.";
+      }
       // If the answer have no-result flag
-			if ($answer['no-results'] == 1) {
+      else if ($answer['no-results'] == 1) {
         $_SESSION['no-results'] += 1;
         if ($_SESSION['no-results'] == 2){
           echo AI::helperMessage();
@@ -42,19 +41,18 @@
         } else {
           echo $answer['message'];
         }
-			} else {
-        // If we got a good answer
+      }
+      // If we got a good answer
+      else {
         $_SESSION['no-results'] = 0;
         echo $answer['message'];
       }
-
     } else {
       echo AI::easterEggs($is_easter_egg);
     }
+  } else {
+    newConversationToken($_SESSION['access_token']);
   }
-  //else {
-  //   newConversationToken($_SESSION['access_token']);
-  // }
 
   function newAccessToken() {
     $authentication = Authentication::getAuthToken();

@@ -72,25 +72,38 @@ const chat = {
   },
   data() {
     return {
-      messages: [],
-      historial: []
+      messages: []
     }
   },
   methods: {
     userMessage(message) {
       var message = {bot: false, body: message}
       this.messages.push(message)
+      localStorage.setItem('historial', JSON.stringify(this.messages))
     },
     botMessage(response) {
       var response = {bot: true, body: response}
       this.messages.push(response)
+      localStorage.setItem('historial', JSON.stringify(this.messages))
+    },
+    getHistorial() {
+    	var historial = localStorage.getItem('historial')
+    	if (historial) {
+    		return JSON.parse(historial)
+    	} else {
+    		localStorage.setItem('historial', JSON.stringify([]))
+    		return []
+    	}
     }
+  },
+  created: function () {
+  	this.messages = this.getHistorial()
   },
   watch: {
   	messages: function() {
       setTimeout(function() {
-      	window.scrollTo(0,document.body.scrollHeight);
-      }, 10);
+      	window.scrollTo(0,document.body.scrollHeight)
+      }, 10)
   	}
   }
 }

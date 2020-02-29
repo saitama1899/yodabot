@@ -49,14 +49,20 @@
       ];
 
       $response = Curl::post(self::CONV_URL.'/message', $headers, $body);
-      // echo json_encode($response);
-      $msg = $response['answers'][0]['message'];
-      $flags = $response['answers'][0]['flags'];
 
-      return [
-        'message' => $msg,
-        'no-results' => in_array('no-results', $flags, true)
-      ];
+      if (!array_key_exists('errors', $response)) {
+        $msg = $response['answers'][0]['message'];
+        $flags = $response['answers'][0]['flags'];
+
+        return [
+          'message' => $msg,
+          'no-results' => in_array('no-results', $flags, true)
+        ];
+      } else {
+        return [
+          'message' => "Session expired."
+        ];
+      }
     }
 }
 
