@@ -9,7 +9,9 @@ Main features:
 - Discover some star wars easter eggs with secret keywords.
 - Responsive design
 
-> Live demo at Heroku soon
+Live demo at Heroku here 
+
+https://yodabot-challange.herokuapp.com/
 
 ![Captura](https://i.gyazo.com/9d7e8b31acdbd8c8eb31581eb0c67db7.png)
 
