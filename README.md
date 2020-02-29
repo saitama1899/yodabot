@@ -11,7 +11,7 @@ Main features:
 
 > Live demo at Heroku soon
 
-![Pc](https://i.gyazo.com/b414a41013cce42d9e1116ef52806e92.png)
+![Captura](https://i.gyazo.com/9d7e8b31acdbd8c8eb31581eb0c67db7.png)
 
 > ### References I used
 >
