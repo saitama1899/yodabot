@@ -14,6 +14,10 @@
     $_SESSION['no-results'] = 0;
   }
 
+  if (!isset($_SESSION['conversation_token'])) {
+    newConversationToken($_SESSION['access_token']);
+  }
+
   // If there is a conversation session already
   if (isset($_SESSION['conversation_token'])) {
     $message = htmlentities($_POST['message']);
@@ -50,8 +54,6 @@
     } else {
       echo AI::easterEggs($is_easter_egg);
     }
-  } else {
-    newConversationToken($_SESSION['access_token']);
   }
 
   function newAccessToken() {
