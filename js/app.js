@@ -38,8 +38,8 @@ const chat_form = {
         this.writing = true
         const form = document.getElementById('chat-form')
         axios
-          // .post('../api/conversation.php', new FormData(form))
-          .post('http://localhost/yodabot/api/conversation.php', new FormData(form))
+          .post('../api/conversation.php', new FormData(form))
+          // .post('http://localhost/yodabot/api/conversation.php', new FormData(form))
           .then(res =>{
             this.response = res.data
             this.$emit('response', this.response)
