@@ -15,7 +15,7 @@
       $c1 = Curl::get(self::URL.'people/'.$chars[0], $headers);
       $c2 = Curl::get(self::URL.'people/'.$chars[1], $headers);
 
-      return 'Know what to say I do not. Hmmmm. You know that '.$c1['name'].' and '.$c2['name'].' were rivals did? Or friends were they?';
+      return 'Know what to say I do not. Hmmmm. You know that "'.$c1['name'].'" and "'.$c2['name'].'" were rivals did? Or friends were they?';
     }
 
     public static function getFlims() {

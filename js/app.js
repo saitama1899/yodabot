@@ -19,7 +19,7 @@ const chat_form = {
         <div class="form-group">
           <input type="text" name="message" v-model="message" class="form-control" placeholder="Say something to YodaBot"
             required required-pattern="[A-Za-z0-9]{2,50}" :disabled="writing" autofocus>
-          <button type="submit" class="btn btn-primary ml-2">Send!</button>
+          <button type="submit" class="btn btn-primary ml-2" :disabled="writing" >Send!</button>
         </div>
       </form>
     </div>
@@ -42,12 +42,15 @@ const chat_form = {
           .post('http://localhost/yodabot/api/conversation.php', new FormData(form))
           .then(res =>{
             this.response = res.data
-            alert(res.data)
+            this.$emit('response', this.response)
           })
           .catch(e => console.log(e))
-          .finally(() => this.writing = false)
+          .finally(() =>
+            this.writing = false
+          )
 
         this.message = ""
+        // this.response = ""
       }
     }
   }
@@ -63,7 +66,7 @@ const chat = {
           <p>{{ message.body }}</p>
         </li>
       </ul>
-      <chat_form @message="userMessage"></chat_form>
+      <chat_form @message="userMessage" @response="botMessage"></chat_form>
     </div>
   `,
   components:{
@@ -79,6 +82,10 @@ const chat = {
     userMessage(message) {
       var message = {bot: false, body: message}
       this.messages.push(message)
+    },
+    botMessage(response) {
+      var response = {bot: true, body: response}
+      this.messages.push(response)
     }
   }
 }
@@ -92,7 +99,7 @@ const footer = {
   `
 }
 
-
+// App
 var app = new Vue({
   el: '#app',
   components:{

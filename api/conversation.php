@@ -16,8 +16,7 @@
 
   // If there is a conversation session already
   if (isset($_SESSION['conversation_token'])){
-    // $message = htmlentities($_POST['message']);
-    $message = "dsafsdf";
+    $message = htmlentities($_POST['message']);
     // If the message contains an easter egg word/sentence
     $is_easter_egg = AI::isEasterEgg($message);
 

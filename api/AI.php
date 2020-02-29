@@ -6,7 +6,8 @@
 
     const SP_SENTENCES = [
       'force',
-      'hello there'
+      'hello there',
+      'baby yoda'
     ];
 
     public static function isEasterEgg ($message) {
@@ -25,7 +26,10 @@
           return StarWarsSwapi::getFlims();
           break;
         case 1:
-          return "<img src='https://media1.tenor.com/images/dc26484243124b4f42647f3eff67f637/tenor.gif' alt='Gif'/>";
+          return "Hello there! Yes, hrrrm.";
+          break;
+        case 2:
+          return "My younger version is not, know if you knew I do not.";
           break;
       }
     }
